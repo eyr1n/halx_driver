@@ -31,10 +31,14 @@ enum class C6x0Id {
 class C6x0Manager {
 public:
   C6x0Manager(peripheral::CanBase &can) : can_{can} {
-    filter_index = *can_.attach_rx_queue({0x200, 0x7F0, false}, rx_queue_);
+    auto filter_index = can_.attach_rx_queue({0x200, 0x7F0, false}, rx_queue_);
+    if (!filter_index) {
+      std::terminate();
+    }
+    filter_index_ = *filter_index;
   }
 
-  ~C6x0Manager() { can_.detach_rx_filter(filter_index); }
+  ~C6x0Manager() { can_.detach_rx_filter(filter_index_); }
 
   void update() {
     while (auto msg = rx_queue_.pop()) {
@@ -107,7 +111,7 @@ private:
 
   peripheral::CanBase &can_;
   core::RingBuffer<peripheral::CanMessage> rx_queue_{64};
-  size_t filter_index;
+  size_t filter_index_;
   std::array<Params, 8> params_{};
 };
 

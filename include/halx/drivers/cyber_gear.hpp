@@ -56,12 +56,16 @@ class CyberGear {
 public:
   CyberGear(peripheral::CanBase &can, uint8_t motor_can_id, uint8_t host_can_id)
       : can_{can}, motor_can_id_{motor_can_id}, master_can_id_{host_can_id} {
-    filter_id_ = can_.attach_rx_queue(
+    auto filter_index = can_.attach_rx_queue(
         {static_cast<uint32_t>(motor_can_id_ << 8), 0x800FF00, true},
         rx_queue_);
+    if (!filter_index) {
+      std::terminate();
+    }
+    filter_index_ = *filter_index;
   }
 
-  ~CyberGear() { can_.detach_rx_filter(*filter_id_); }
+  ~CyberGear() { can_.detach_rx_filter(filter_index_); }
 
   std::optional<CyberGearFeedback> set_operation_control(float torque,
                                                          float angle,
@@ -189,7 +193,7 @@ private:
   };
 
   peripheral::CanBase &can_;
-  std::optional<size_t> filter_id_;
+  size_t filter_index_;
   core::RingBuffer<peripheral::CanMessage> rx_queue_{8};
   uint8_t motor_can_id_;
   uint8_t master_can_id_;
