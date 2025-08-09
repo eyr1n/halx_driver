@@ -7,7 +7,7 @@
 
 #include <halx/peripheral/uart.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class Ps3Axis {
   LEFT_X,
@@ -111,4 +111,4 @@ private:
   }
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

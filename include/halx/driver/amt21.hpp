@@ -7,7 +7,7 @@
 
 #include <halx/peripheral/uart.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class Amt21Resolution : uint8_t {
   BIT_12 = 12,
@@ -96,4 +96,4 @@ private:
   uint8_t address_;
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

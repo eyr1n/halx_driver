@@ -4,7 +4,7 @@
 
 #include <halx/core.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 class IncrementalEncoder {
 public:
@@ -27,4 +27,4 @@ private:
   int64_t position_ = 0;
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

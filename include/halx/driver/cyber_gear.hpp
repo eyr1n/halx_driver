@@ -12,7 +12,7 @@
 #include <halx/core.hpp>
 #include <halx/peripheral/can.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class CyberGearRunMode : uint8_t {
   OPERATION_CONTROL = 0x00,
@@ -287,4 +287,4 @@ private:
   }
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

@@ -10,7 +10,7 @@
 #include <halx/core.hpp>
 #include <halx/peripheral/can.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class C6x0Type {
   C610,
@@ -154,4 +154,4 @@ private:
   C6x0Id id_;
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

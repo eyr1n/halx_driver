@@ -7,7 +7,7 @@
 
 #include <halx/core.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 struct Rgb {
   float r;
@@ -108,4 +108,4 @@ private:
   std::vector<uint32_t> buf_;
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

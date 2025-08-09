@@ -11,7 +11,7 @@
 #include <halx/core.hpp>
 #include <halx/rtos.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class Amt22Resolution : uint8_t {
   BIT_12 = 12,
@@ -114,4 +114,4 @@ private:
   static inline bool bit(uint8_t x, uint8_t i) { return ((x >> i) & 1) == 1; }
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

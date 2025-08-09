@@ -11,7 +11,7 @@
 
 #include <halx/peripheral/uart.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class UnitreeGoMode : uint8_t {
   LOCK,
@@ -136,4 +136,4 @@ private:
   }
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

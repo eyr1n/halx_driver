@@ -12,7 +12,7 @@
 #include <halx/core.hpp>
 #include <halx/peripheral/uart.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 enum class Bno055Register : uint8_t {
   // Page 0
@@ -204,4 +204,4 @@ private:
   peripheral::UartBase &uart_;
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver

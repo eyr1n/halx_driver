@@ -7,7 +7,7 @@
 
 #include <halx/peripheral/uart.hpp>
 
-namespace halx::drivers {
+namespace halx::driver {
 
 class ScsManager {
 public:
@@ -162,4 +162,4 @@ private:
   }
 };
 
-} // namespace halx::drivers
+} // namespace halx::driver
