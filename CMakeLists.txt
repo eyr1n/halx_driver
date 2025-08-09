@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(halx_drivers LANGUAGES CXX)
+project(halx_driver LANGUAGES CXX)
 
 include(FetchContent)
 FetchContent_Declare(eigen
