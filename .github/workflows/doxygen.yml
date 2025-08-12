@@ -33,7 +33,7 @@ jobs:
           sudo make install
       - run: |
           cmake -B build
-          cmake --build build --target docs
+          cmake --build build --target halx_driver_docs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./build/html
