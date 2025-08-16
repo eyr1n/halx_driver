@@ -188,7 +188,7 @@ private:
   struct CyberGearMessage {
     CommunicationType type;
     uint8_t target_address;
-    alignas(alignof(uintptr_t)) std::array<uint8_t, 8> data1;
+    std::array<uint8_t, 8> data1;
     uint16_t data2;
   };
 
