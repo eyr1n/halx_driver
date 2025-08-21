@@ -133,6 +133,7 @@ public:
     case C6x0Type::C620:
       return manager_.get_current_raw(id_) / 16384.0f * 20000.0f;
     }
+    std::unreachable();
   }
 
   void set_current_ref(float current) {
