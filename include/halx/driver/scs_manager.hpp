@@ -20,8 +20,8 @@ public:
     return check_error(id);
   }
 
-  std::optional<uint8_t> read_data(uint8_t id, uint8_t address, uint8_t *data,
-                                   uint8_t size) {
+  [[nodiscard]] std::optional<uint8_t> read_data(uint8_t id, uint8_t address,
+                                                 uint8_t *data, uint8_t size) {
     if (!send_message(id, Instruction::READ_DATA, address, &size, 1)) {
       return std::nullopt;
     }
@@ -55,7 +55,7 @@ public:
   std::optional<uint8_t> write_data(uint8_t id, uint8_t address,
                                     const uint8_t *data, uint8_t size) {
     if (!send_message(id, Instruction::WRITE_DATA, address, data, size)) {
-      return false;
+      return std::nullopt;
     }
     return check_error(id);
   }
@@ -63,28 +63,28 @@ public:
   std::optional<uint8_t> reg_write(uint8_t id, uint8_t address,
                                    const uint8_t *data, uint8_t size) {
     if (!send_message(id, Instruction::REG_WRITE, address, data, size)) {
-      return false;
+      return std::nullopt;
     }
     return check_error(id);
   }
 
   std::optional<uint8_t> action(uint8_t id) {
     if (!send_message(id, Instruction::ACTION, 0, nullptr, 0)) {
-      return false;
+      return std::nullopt;
     }
     return check_error(id);
   }
 
   std::optional<uint8_t> recovery(uint8_t id) {
     if (!send_message(id, Instruction::RECOVERY, 0, nullptr, 0)) {
-      return false;
+      return std::nullopt;
     }
     return check_error(id);
   }
 
   std::optional<uint8_t> reset(uint8_t id) {
     if (!send_message(id, Instruction::RESET, 0, nullptr, 0)) {
-      return false;
+      return std::nullopt;
     }
     return check_error(id);
   }
