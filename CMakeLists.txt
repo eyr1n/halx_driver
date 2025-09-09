@@ -8,7 +8,6 @@ target_link_libraries(${PROJECT_NAME} INTERFACE
   halx
 )
 target_include_directories(${PROJECT_NAME} INTERFACE
-  eigen
   include
 )
 

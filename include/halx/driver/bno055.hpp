@@ -7,7 +7,7 @@
 #include <optional>
 #include <utility>
 
-#include <Eigen/Geometry>
+// #include <Eigen/Geometry>
 
 #include <halx/core.hpp>
 #include <halx/peripheral/uart.hpp>
@@ -151,7 +151,7 @@ public:
     return false;
   }
 
-  std::optional<Eigen::Quaternionf> get_quaternion() {
+  /* std::optional<Eigen::Quaternionf> get_quaternion() {
     auto res = read_register<8>(Bno055Register::QUA_DATA_W_LSB);
     if (!res) {
       return std::nullopt;
@@ -161,7 +161,7 @@ public:
         static_cast<int16_t>(((*res)[3] << 8) | (*res)[2]) / 16384.0f,
         static_cast<int16_t>(((*res)[5] << 8) | (*res)[4]) / 16384.0f,
         static_cast<int16_t>(((*res)[7] << 8) | (*res)[6]) / 16384.0f};
-  }
+  } */
 
   template <size_t N>
   bool write_register(Bno055Register address,
