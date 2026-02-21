@@ -30,7 +30,8 @@ enum class C6x0Id {
 
 class C6x0Manager {
 public:
-  C6x0Manager(peripheral::CanBase &can) : can_{can} {
+  C6x0Manager(peripheral::CanBase &can, uint32_t timeout = 1000)
+      : can_{can}, timeout_{timeout} {
     auto filter_index = can_.attach_rx_queue({0x200, 0x7F0, false}, rx_queue_);
     if (!filter_index) {
       std::terminate();
@@ -61,6 +62,7 @@ public:
         motor.rpm_ = static_cast<int16_t>(msg->data[2] << 8 | msg->data[3]);
         motor.current_raw_ =
             static_cast<int16_t>(msg->data[4] << 8 | msg->data[5]);
+        motor.last_update_ = core::get_tick();
       }
     }
   }
@@ -100,6 +102,18 @@ public:
     params_[std::to_underlying(id)].current_ref_raw_ = current;
   }
 
+  bool connected(C6x0Id id) {
+    auto last_update = params_[std::to_underlying(id)].last_update_;
+    if (!last_update) {
+      return false;
+    }
+    if (static_cast<uint32_t>(core::get_tick() - *last_update) >= timeout_) {
+      params_[std::to_underlying(id)].last_update_ = std::nullopt;
+      return false;
+    }
+    return true;
+  }
+
 private:
   struct Params {
     int64_t position_ = 0;
@@ -107,12 +121,14 @@ private:
     int16_t rpm_ = 0;
     int16_t current_raw_ = 0;
     int16_t current_ref_raw_ = 0;
+    std::optional<uint32_t> last_update_;
   };
 
   peripheral::CanBase &can_;
   core::RingBuffer<peripheral::CanMessage> rx_queue_{64};
   size_t filter_index_;
   std::array<Params, 8> params_{};
+  uint32_t timeout_;
 };
 
 class C6x0 {
@@ -148,6 +164,8 @@ public:
       break;
     }
   }
+
+  bool connected() { return manager_.connected(id_); }
 
 private:
   C6x0Manager &manager_;
